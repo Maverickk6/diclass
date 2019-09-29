@@ -278,7 +278,10 @@ hr:before {
     padding: 2rem;
 }
 
-
+label {
+    width: 100%;
+    margin-bottom: 0;
+}
 .fa, .fd{
 padding: 15px;
 font-size: 25px !important;
