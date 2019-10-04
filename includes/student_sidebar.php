@@ -20,6 +20,8 @@ $tid = $_SESSION['id'];
                 <li><a href="student_dashboard.php">Dashboard</a></li>
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="all_class.php"> Classes</a></li>
+                <li><a href="course_track.php">Course Track</a></li>
+                <li><a href="category.php">category</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
 </aside>
