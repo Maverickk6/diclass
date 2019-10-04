@@ -36,7 +36,8 @@ CREATE TABLE `class` (
   `description` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `completed` int(5) NOT NULL DEFAULT '0',
-  `class_thumbnail` varchar(200) NOT NULL
+  `class_thumbnail` varchar(200) NOT NULL,
+  `category` varchar(255) NOT NULL   
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
