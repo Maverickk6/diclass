@@ -73,7 +73,6 @@
                                 <input type="email" name="email" id="email-2" placeholder="example@gmail.com">
                             </label>
 
-
                             <label for="type">
                                 <select name="type" required>
                                     <option value="student">Student</option>
@@ -81,7 +80,7 @@
                                 </select>
                             </label>
 
-                            <button type="submit" name="reset" id="login">Reset Password</button>
+                            <button type="submit" name="reset" >Reset Password</button>
 
                         </form>
                     </div>
