@@ -54,24 +54,49 @@
 
 <!--sign up modal-->
 
-    <div class="modal fade" id="modal-id">
+    <div class="modal" id="modal-id">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Reset Password</h4>
-                </div>
-                <div class="modal-body">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Reset Password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="signup-container signup_login" style="margin: 0;">
+                        <form action="login.php" method="POST" class="login-form">
+
+                            <label for="email-2">
+                                <input type="email" name="email" id="email-2" placeholder="example@gmail.com">
+                            </label>
+
+
+                            <label for="type">
+                                <select name="type" required>
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                </select>
+                            </label>
+
+                            <button type="submit" name="reset" id="login">Reset Password</button>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <script type="text/javascript" src=""></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> <!--Jquery included-->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script> <!--bootstrap js included-->
 </body>
 </html>
