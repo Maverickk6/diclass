@@ -36,8 +36,8 @@ function send_email($subject,$to,$message,$cc = FALSE)
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
 
-    //echo $message;
-    //exit();
+    echo $message;
+    exit();
 
     @mail($to, $subject, $message, $headers);
 }
@@ -57,7 +57,7 @@ if (isset($_POST['reset'])) {
 
     if($_POST['type'] == 'student'){
 
-        $query = mysqli_query($con, "SELECT id,name FROM students WHERE email = '$email'") or die(mysqli_error($con));
+        $query = mysqli_query($con, "SELECT student_id,fullname FROM students WHERE email = '$email'") or die(mysqli_error($con));
         $counter = mysqli_num_rows($query);
 
         if ($counter == 0) {
@@ -74,23 +74,42 @@ if (isset($_POST['reset'])) {
 
             $date_added = time();
             //insert code
-            $insert = mysqli_query($con, "INSERT INTO password_reset(user_id, email, code, date_added) VALUES ('$id','$email','$code','$date_added')");
+            $insert = mysqli_query($con, "INSERT INTO password_reset(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','student')");
 
+            //send the email
 
-            addAlert('success', 'A password reset link has been sent to your email!');
+            $url = "$baseUrl/reset_page.php?email=$email&code=$code";
+            $link = "<a href=\"$url\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #052d3d; background-color: #42a8de; border-radius: 14px; -webkit-border-radius: 14px; -moz-border-radius: 14px; width: auto; width: auto; border-top: 1px solid #42a8de; border-right: 1px solid #42a8de; border-bottom: 1px solid #42a8de; border-left: 1px solid #42a8de; padding-top: 5px; padding-bottom: 5px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;\">
+<span style=\"font-size: 16px; line-height: 2; mso-line-height-alt: 32px;\"><span style=\"font-size: 14px; line-height: 28px; color: #fff !important\">Click Here to Reset Password</span></span>
+</span></a>";
+
+            $subject = "Di-Class Password Reset";
+            $message = "<p>Hi $name, you recently requested to change your Di-Class student account password</p>";
+            $message .= "<p>Kindly click on the link below to reset your password!</p>";
+            $message .= "<p align='center'>$link</p>";
+            $message .= "<p>Alternatively, you can also copy and paste the link below in your web browser!</p>";
+            $message .= "<p align='center'>$url</p>";
+
+            send_email($subject,"$email","$message");
+
+            //exit();
+
+            addAlert('success', 'A password reset link has been sent to your email!<br>Note that the link expires in one hour!');
             header("location:login_page.php");
+            exit();
         }
 
 
     }else if($_POST['type'] == 'teacher'){
 
-        $query = mysqli_query($con, "SELECT * FROM teachers WHERE email = '$email' AND password = '$password'") or die(mysqli_error($con));
+        $query = mysqli_query($con, "SELECT fullname,teacher_id FROM teachers WHERE email = '$email'") or die(mysqli_error($con));
 $counter = mysqli_num_rows($query);
 
 if ($counter == 0) {
 
-    addAlert('error', 'Invalid Email or Password! Try again');
-    echo "<script>document.location='login_page.php'</script>";
+    addAlert('error', 'Invalid Email Address');
+    header("location:login.php");
+    exit();
 } else {
 
     //Get user details from db
@@ -98,12 +117,34 @@ if ($counter == 0) {
     $name = $row['fullname'];
     $id = $row['teacher_id'];
 
-    //Add to Session
-    $_SESSION['id'] = $id;
-    $_SESSION['name'] = $name;
-    $_SESSION['type'] = 'teacher';
-    addAlert('success', 'You Successfully Logged in');
-    echo "<script type='text/javascript'>document.location='teacher_dashboard.php'</script>";
+    //generate random code
+    $code = rand(0,9).rand(0,9).rand(0,9).rand(0,9).$id;
+
+    $date_added = time();
+    //insert code
+    $insert = mysqli_query($con, "INSERT INTO password_reset(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','teacher')");
+
+    //send the email
+
+    $url = "$baseUrl/reset_page.php?email=$email&code=$code";
+    $link = "<a href=\"$url\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #052d3d; background-color: #42a8de; border-radius: 14px; -webkit-border-radius: 14px; -moz-border-radius: 14px; width: auto; width: auto; border-top: 1px solid #42a8de; border-right: 1px solid #42a8de; border-bottom: 1px solid #42a8de; border-left: 1px solid #42a8de; padding-top: 5px; padding-bottom: 5px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;\">
+<span style=\"font-size: 16px; line-height: 2; mso-line-height-alt: 32px;\"><span style=\"font-size: 14px; line-height: 28px; color: #fff !important\">Click Here to Reset Password</span></span>
+</span></a>";
+
+    $subject = "Di-Class Password Reset";
+    $message = "<p>Hi $name, you recently requested to change your Di-Class teacher account password</p>";
+    $message .= "<p>Kindly click on the link below to reset your password!</p>";
+    $message .= "<p align='center'>$link</p>";
+    $message .= "<p>Alternatively, you can also copy and paste the link below in your web browser!</p>";
+    $message .= "<p align='center'>$url</p>";
+
+    send_email($subject,"$email","$message");
+
+    //exit();
+
+    addAlert('success', 'A password reset link has been sent to your email!<br>Note that the link expires in one hour!');
+    header("location:login_page.php");
+    exit();
 }
 
 
