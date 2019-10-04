@@ -67,7 +67,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="signup-container signup_login" style="margin: 0;">
-                        <form action="login.php" method="POST" class="login-form">
+                        <form action="reset.php" method="POST" class="login-form">
 
                             <label for="email-2">
                                 <input type="email" name="email" id="email-2" placeholder="example@gmail.com">
