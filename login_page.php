@@ -43,9 +43,35 @@
             </label>
     
             <button type="submit" name="login" id="login">Login</button>
-            <p><a href="index.php" class="text-center"> << Go Back Home</a></p>
+            <div class="row">
+                <p class="col-sm-6 col-xs-12">Forget Password? <a data-toggle="modal" href='#modal-id'>Reset</a></p> <!--Forgot password modal added-->
+                <p class="col-sm-6 col-xs-12"><a href="index.php" class="text-center"> << Go Back Home</a></p>
+            </div>
         </form>
 
     </div>
+
+
+<!--sign up modal-->
+
+    <div class="modal fade" id="modal-id">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Reset Password</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src=""></script>
 </body>
 </html>
