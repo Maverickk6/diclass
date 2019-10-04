@@ -36,8 +36,8 @@ function send_email($subject,$to,$message,$cc = FALSE)
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
 
-    echo $message;
-    exit();
+    //echo $message;
+    //exit();
 
     @mail($to, $subject, $message, $headers);
 }
@@ -74,7 +74,7 @@ if (isset($_POST['reset'])) {
 
             $date_added = time();
             //insert code
-            $insert = mysqli_query($con, "INSERT INTO password_reset(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','student')");
+            $insert = mysqli_query($con, "INSERT INTO password_resets(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','student')");
 
             //send the email
 
@@ -122,7 +122,7 @@ if ($counter == 0) {
 
     $date_added = time();
     //insert code
-    $insert = mysqli_query($con, "INSERT INTO password_reset(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','teacher')");
+    $insert = mysqli_query($con, "INSERT INTO password_resets(user_id, email, code, date_added, a_type) VALUES ('$id','$email','$code','$date_added','teacher')");
 
     //send the email
 
